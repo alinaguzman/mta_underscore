@@ -6,8 +6,8 @@
 // xx Please choose an endStation
 // xx Find the intersection
 // xx Display the number of stops
-// Track the total journeys taken
-// Calculate total cost of journeys taken at $2.50 per ride.
+// xx Track the total journeys taken
+// xx Calculate total cost of journeys taken at $2.50 per ride.
 
 var lStations = [ "8th ave", "6th", "Union Square", "3rd", "1st" ];
 var nStations = [ "Times Square", "34th", "28th", "23rd", "Union Square", "8th st" ];
@@ -39,10 +39,6 @@ function displayLines(){
     return trainNames.trim();
 }
 
-//sets users choice as an index number
-var trainMsg = "Which train would you like to get on?\n" + displayLines();
-firstTrain = parseFloat(prompt(trainMsg));
-
 //function to display stops for the first line
 function displayStops() {
     var trainStops = "";
@@ -53,14 +49,6 @@ function displayStops() {
     return trainStops;
 }
 
-//prompt to choose first trains stop
-var firstStopMsg = "Which stop would you like to get on?\n";
-firstStop = prompt(firstStopMsg + displayStops());    //this returns a station name ex "8th"
-
-//prompt to choose second train line
-var trainMsg2 = "Which train would you like to get off?\n" + displayLines();
-lastTrain = parseFloat(prompt(trainMsg2));
-
 //displays second prompt with list of stations of the second line they choose
 function displaySecondStops() {
     var trainStops = "";
@@ -70,26 +58,47 @@ function displaySecondStops() {
     return trainStops;
 }
 
-//prompts user to choose their second lines station to get off.
-var secondStopMsg = "Which stop would you like to get off?\n";
-secondStop = prompt(secondStopMsg + displaySecondStops()); //returns a string station name
-
 //Displays the distance of the trains, same line works just fine.
 //Cross-line distance doesn't work for G train because theres no intersection?
+var ridingTheTrain = true;
 var journeys = 0;
-if (firstTrain === lastTrain){
-    alert(trains[firstTrain].distance(firstStop,secondStop) + " stops.");
-    journeys++;
 
-} else {
-    var intersection = _.intersection(trains[firstTrain].stations,trains[lastTrain].stations);
-    var first = Math.abs(trains[firstTrain].distance(firstStop, intersection));
-    var second = Math.abs(trains[lastTrain].distance(secondStop, intersection));
-    var totalDistance = Math.abs(first + second);
-    alert(totalDistance + " stops.")
-    journeys++
+while (ridingTheTrain){
+    //sets users choice as an index number
+    var trainMsg = "Which train would you like to get on?\n" + displayLines();
+    firstTrain = parseFloat(prompt(trainMsg));
+
+    //prompt to choose first trains stop
+    var firstStopMsg = "Which stop would you like to get on?\n";
+    firstStop = prompt(firstStopMsg + displayStops());    //this returns a station name ex "8th"
+
+    //prompt to choose second train line
+    var trainMsg2 = "Which train would you like to get off?\n" + displayLines();
+    lastTrain = parseFloat(prompt(trainMsg2));
+
+    //prompts user to choose their second lines station to get off.
+    var secondStopMsg = "Which stop would you like to get off?\n";
+    secondStop = prompt(secondStopMsg + displaySecondStops()); //returns a string station name
+
+    if (firstTrain === lastTrain){
+        alert(trains[firstTrain].distance(firstStop,secondStop) + " stops.");
+        journeys++;
+
+    } else {
+        var intersection = _.intersection(trains[firstTrain].stations,trains[lastTrain].stations);
+        var first = Math.abs(trains[firstTrain].distance(firstStop, intersection));
+        var second = Math.abs(trains[lastTrain].distance(secondStop, intersection));
+        var totalDistance = Math.abs(first + second);
+        alert(totalDistance + " stops.");
+        journeys++
+    }
+
+    alert("You now owe $" + parseFloat(journeys * 2.50));
+
+    var anotherTrain = prompt("Do you want to go on another fun subway ride? Yes/No");
+    if (anotherTrain == "No"){
+        ridingTheTrain = false;
+    }
 }
-
-alert("You owe $" + parseFloat(journeys * 2.50));
 
 
