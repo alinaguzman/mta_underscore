@@ -35,9 +35,7 @@ trains = [lTrain, nTrain, sixTrain, gTrain];
 //Displays Lines on the first user prompt
 function displayLines(){
     var trainNames = "";
-    for (var i = 0; i< trains.length; i++) {
-        trainNames += trains[i].name + "\n";
-    }
+    _.each(trains, function(train){ trainNames += (train.name) + "\n"});
     return trainNames.trim();
 }
 
@@ -48,9 +46,10 @@ firstTrain = parseFloat(prompt(trainMsg));
 //function to display stops for the first line
 function displayStops() {
     var trainStops = "";
-    for (var i = 0; i < trains[firstTrain].stations.length; i++ ){
-        trainStops += trains[firstTrain].stations[i] + "\n";
-    }
+    _.each(trains[firstTrain].stations, function(station) { trainStops += station + "\n"});
+//    for (var i = 0; i < trains[firstTrain].stations.length; i++ ){
+//        trainStops += trains[firstTrain].stations[i] + "\n";
+//    }
     return trainStops;
 }
 
@@ -65,9 +64,12 @@ lastTrain = parseFloat(prompt(trainMsg2));
 //displays second prompt with list of stations of the second line they choose
 function displaySecondStops() {
     var trainStops = "";
-    for (var i = 0; i < trains[lastTrain].stations.length; i++) {
-        trainStops += trains[lastTrain].stations[i] + "\n";
-    }
+//    for (var i = 0; i < trains[lastTrain].stations.length; i++) {
+//        trainStops += trains[lastTrain].stations[i] + "\n";
+//    }
+    _.each(trains[lastTrain].stations, function(station) {
+        trainStops += station + "\n"
+    });
     return trainStops;
 }
 
@@ -75,14 +77,13 @@ function displaySecondStops() {
 var secondStopMsg = "Which stop would you like to get off?\n";
 secondStop = prompt(secondStopMsg + displaySecondStops()); //returns a string station name
 
-//Doesn't work for G train because I hard coded in Union Square
+//Displays the distance of the trains, same line works just fine.
+//Cross-line distance doesn't work for G train because I hard coded in Union Square
 if (firstTrain === lastTrain){
     alert(trains[firstTrain].distance(firstStop,secondStop) + " stops.");
 } else {
     var first = Math.abs(trains[firstTrain].distance(firstStop, "Union Square"));
     var second = Math.abs(trains[lastTrain].distance(secondStop, "Union Square"));
     var totalDistance = Math.abs(first + second);
-
-    totalDistance = Math.abs(first + second)
     alert(totalDistance + " stops.")
 }
