@@ -4,13 +4,13 @@
 // xx Please choose a startStation
 // xx Please choose an endLine
 // xx Please choose an endStation
-// Find the intersection
-// Display the number of stops
+// xx Find the intersection
+// xx Display the number of stops
 // Track the total journeys taken
 // Calculate total cost of journeys taken at $2.50 per ride.
 
 var lStations = [ "8th ave", "6th", "Union Square", "3rd", "1st" ];
-var nStations = [ "Times Square", "34th", "28th", "23rd", "Union Square", "8th" ];
+var nStations = [ "Times Square", "34th", "28th", "23rd", "Union Square", "8th st" ];
 var sixStations = [ "Grand Central", "33rd", "28th", "23rd", "Union Square", "Astor Place" ];
 var gStations = [ "Greenpoint", "Nassau", "Metropolitan", "Broadway" ];
 
@@ -64,9 +64,6 @@ lastTrain = parseFloat(prompt(trainMsg2));
 //displays second prompt with list of stations of the second line they choose
 function displaySecondStops() {
     var trainStops = "";
-//    for (var i = 0; i < trains[lastTrain].stations.length; i++) {
-//        trainStops += trains[lastTrain].stations[i] + "\n";
-//    }
     _.each(trains[lastTrain].stations, function(station) {
         trainStops += station + "\n"
     });
@@ -78,13 +75,21 @@ var secondStopMsg = "Which stop would you like to get off?\n";
 secondStop = prompt(secondStopMsg + displaySecondStops()); //returns a string station name
 
 //Displays the distance of the trains, same line works just fine.
-//Cross-line distance doesn't work for G train because I hard coded in Union Square
+//Cross-line distance doesn't work for G train because theres no intersection?
+var journeys = 0;
 if (firstTrain === lastTrain){
     alert(trains[firstTrain].distance(firstStop,secondStop) + " stops.");
+    journeys++;
+
 } else {
     var intersection = _.intersection(trains[firstTrain].stations,trains[lastTrain].stations);
     var first = Math.abs(trains[firstTrain].distance(firstStop, intersection));
     var second = Math.abs(trains[lastTrain].distance(secondStop, intersection));
     var totalDistance = Math.abs(first + second);
     alert(totalDistance + " stops.")
+    journeys++
 }
+
+alert("You owe $" + parseFloat(journeys * 2.50));
+
+
