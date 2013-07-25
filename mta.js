@@ -1,4 +1,4 @@
-// Refactor your code with underscore
+// xx Refactor your code with underscore
 // xx Prompt the user
 // xx Please choose a startLine
 // xx Please choose a startStation
@@ -9,7 +9,7 @@
 // Track the total journeys taken
 // Calculate total cost of journeys taken at $2.50 per ride.
 
-var lStations = [ "8th", "6th", "Union Square", "3rd", "1st" ];
+var lStations = [ "8th ave", "6th", "Union Square", "3rd", "1st" ];
 var nStations = [ "Times Square", "34th", "28th", "23rd", "Union Square", "8th" ];
 var sixStations = [ "Grand Central", "33rd", "28th", "23rd", "Union Square", "Astor Place" ];
 var gStations = [ "Greenpoint", "Nassau", "Metropolitan", "Broadway" ];
@@ -82,8 +82,9 @@ secondStop = prompt(secondStopMsg + displaySecondStops()); //returns a string st
 if (firstTrain === lastTrain){
     alert(trains[firstTrain].distance(firstStop,secondStop) + " stops.");
 } else {
-    var first = Math.abs(trains[firstTrain].distance(firstStop, "Union Square"));
-    var second = Math.abs(trains[lastTrain].distance(secondStop, "Union Square"));
+    var intersection = _.intersection(trains[firstTrain].stations,trains[lastTrain].stations);
+    var first = Math.abs(trains[firstTrain].distance(firstStop, intersection));
+    var second = Math.abs(trains[lastTrain].distance(secondStop, intersection));
     var totalDistance = Math.abs(first + second);
     alert(totalDistance + " stops.")
 }
