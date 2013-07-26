@@ -43,9 +43,6 @@ function displayLines(){
 function displayStops() {
     var trainStops = "";
     _.each(trains[firstTrain].stations, function(station) { trainStops += station + "\n"});
-//    for (var i = 0; i < trains[firstTrain].stations.length; i++ ){
-//        trainStops += trains[firstTrain].stations[i] + "\n";
-//    }
     return trainStops;
 }
 
@@ -58,8 +55,6 @@ function displaySecondStops() {
     return trainStops;
 }
 
-//Displays the distance of the trains, same line works just fine.
-//Cross-line distance doesn't work for G train because theres no intersection?
 var ridingTheTrain = true;
 var journeys = 0;
 
@@ -92,13 +87,10 @@ while (ridingTheTrain){
         alert(totalDistance + " stops.");
         journeys++
     }
-
     alert("You now owe $" + parseFloat(journeys * 2.50));
 
-    var anotherTrain = prompt("Do you want to go on another fun subway ride? Yes/No");
-    if (anotherTrain == "No"){
+    var anotherTrain = confirm("Do you want to go on another fun subway ride?");
+    if (anotherTrain == false){
         ridingTheTrain = false;
     }
 }
-
-
